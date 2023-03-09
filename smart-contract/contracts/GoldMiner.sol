@@ -71,10 +71,8 @@ contract GoldMiner is Context, Ownable, ReentrancyGuard {
     // }
 
     function startPeriod() external onlyOwner {
-        if (periods.length > 0) {
-            endPeriod(periodIndex);
-            periodIndex++;
-        }
+        if (periods.length > 1) endPeriod(periodIndex - 1);
+        if (periods.length > 0) periodIndex++;
         GamePeriod storage period = periods.push();
         period.seed = RNG();
         period.startTime = block.timestamp;
